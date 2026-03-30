@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Pollen | Beta Arcade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="side-glow-overlay"></div>
+
+    <div id="tabs-bar" class="tabs-bar">
+        </div>
+
+    <header class="main-header">
+        <div class="header-left">
+            <button id="logo-btn" class="logo" onclick="refreshCurrentTab()">Project Pollen</button>
+        </div>
+
+        <div class="header-controls">
+            <div class="control-group">
+                <select id="theme-select" class="theme-dropdown">
+                    <option value="dark">Dark Mode</option>
+                    <option value="light">Light Mode</option>
+                    <option value="watermelon">Watermelon</option>
+                    <option value="green">Emerald</option>
+                    <option value="red">Crimson</option>
+                    <option value="nebula">Nebula</option>
+                    <option value="custom">✨ Custom Theme</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <button id="openSettings" class="play-btn-small" title="Settings">⚙️</button>
+            </div>
+
+            <div class="control-group">
+                <div id="header-clock" class="clock-display">00:00:00 AM</div>
+            </div>
+        </div>
+    </header>
+
+    <main id="iframes-container">
+        </main>
+
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="margin: 0;">Settings</h2>
+                <button id="closeSettings" class="close-btn" style="background: none; border: none; color: var(--text); font-size: 2.2rem; cursor: pointer; line-height: 1;">&times;</button>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
+
+            <div class="modal-body" style="max-height: 450px; overflow-y: auto; padding-right: 10px;">
+                
+                <section class="settings-section" style="margin-bottom: 25px;">
+                    <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1.1rem;">Live Theme Creator</h3>
+                    <div class="controls" style="display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            Background <input type="color" id="bgPicker" style="cursor: pointer;">
+                        </label>
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            Accent Color <input type="color" id="accentPicker" style="cursor: pointer;">
+                        </label>
+                        <label style="display: flex; justify-content: space-between; align-items: center;">
+                            Text Color <input type="color" id="textPicker" style="cursor: pointer;">
+                        </label>
+                    </div>
+                    
+                    <div class="theme-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button id="exportTheme" class="play-btn-small" style="flex: 1;">📤 Export .txt</button>
+                        <button id="importBtn" class="play-btn-small" style="flex: 1;">📥 Import .txt</button>
+                        <input type="file" id="importTheme" style="display: none;" accept=".txt">
+                    </div>
+                </section>
+
+                <section class="settings-section" style="margin-bottom: 20px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border-left: 3px solid var(--accent);">
+                    <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1rem;">Version History</h3>
+                    <ul style="font-size: 0.75rem; line-height: 1.6; padding-left: 18px; margin: 0; opacity: 0.9; list-style-type: '» ';">
+                        <li><strong>v1.00.0</strong> - 🚀 <strong>First Official Release</strong>: Finalized Sandbox security to block intrusive ads and implemented the "Custom Theme" engine.</li>
+                        <li><strong>v0.95.6</strong> - Fixed "sticky" search bar and flexbox alignment.</li>
+
+                        <li style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;"><strong>v0.95.5</strong> - Adding Back Features.</li>
+                        <li><strong>v0.95.4</strong> - Fixed "sticky" search bar and flexbox alignment.</li>
+                        <li><strong>v0.95.2</strong> - Forced 4:3 Theater Mode aspect ratio for all game iframes.</li>
+                        <li><strong>v0.95.0</strong> - Implemented Version Interpolation for dynamic UI strings.</li>
+                        <li><strong>v0.94.5</strong> - Cleaned up redundant CSS selectors and optimized transitions.</li>
+                        <li><strong>v0.93.0</strong> - Added persistent theme memory via LocalStorage.</li>
+                        <li><strong>v0.91.2</strong> - Integrated the AM/PM live header clock.</li>
+                        <li><strong>v0.90.0</strong> - <strong>Beta Launch</strong>: Transitioned to Multi-Tab architecture.</li>
+                        
+                        <li style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;"><strong>v0.88.0</strong> - Consolidated legacy game list (46+ titles).</li>
+                        <li><strong>v0.85.0</strong> - Added high-contrast themes (Watermelon, Nebula).</li>
+                        <li><strong>v0.80.0</strong> - Refactored search logic for real-time fuzzy matching.</li>
+                        <li><strong>v0.78.0</strong> - Implemented "Panic Button" (\) redirect logic.</li>
+                        <li><strong>v0.75.0</strong> - Added Fredoka font-face and global typography scales.</li>
+                        <li><strong>v0.70.0</strong> - Integrated background-blur effects for modals.</li>
+                        <li><strong>v0.65.0</strong> - Optimized thumbnail loading with CSS object-fit rules.</li>
+                        
+                        <li style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;"><strong>v0.60.8</strong> - Integrated Theme Export/Import (.txt) for sharing custom configs.</li>
+                        <li><strong>v0.60.5</strong> - Added "F" for Fullscreen and "Backspace" for menu navigation.</li>
+                        <li><strong>v0.60.2</strong> - Implemented Hex Color Pickers and real-time Theme Customizer.</li>
+                        <li><strong>v0.60.0</strong> - <strong>Alpha Milestone</strong>: Initial grid system and iframe stage.</li>
+                        
+                        <li style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;"><strong>v0.58.0</strong> - Added "Panic Button" (\) instant redirect logic.</li>
+                        <li><strong>v0.55.0</strong> - Integrated real-time Search Bar with A-Z game sorting.</li>
+                        <li><strong>v0.50.0</strong> - Consolidated legacy game list (53 titles).</li>
+                        <li><strong>v0.45.0</strong> - Added preset high-contrast themes (Watermelon, Nebula).</li>
+                        <li><strong>v0.40.0</strong> - <strong>Pre-Alpha Launch</strong>: Established Fredoka typography and global scales.</li>
+                        
+                        <li style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;"><strong>v0.35.0</strong> - Optimized thumbnail loading with CSS background-size rules.</li>
+                        <li><strong>v0.30.0</strong> - Developed "GoHome" logo reset and version-tag navigation.</li>
+                        <li><strong>v0.20.0</strong> - Established responsive container for Chromebook/Windows scaling.</li>
+                        <li><strong>v0.10.0</strong> - <strong>Groundwork</strong>: Initial file structure (index, style, app) and directory mapping.</li>
+                    </ul>
+                </section>
+
+                <section class="settings-section">
+                    <h3 style="color: var(--accent); margin-bottom: 8px; font-size: 1.1rem;">Beta Assets</h3>
+                    <a href="Project Pollen.zip" download class="play-btn-small" style="display: block; text-align: center; text-decoration: none;">
+                        Download Project Pollen.zip
+                    </a>
+                </section>
+            </div>
+
+            <div class="modal-footer" style="margin-top: 25px;">
+                <button id="saveSettings" class="play-btn-small" style="width: 100%;">Close & Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
